@@ -25,38 +25,50 @@
 #
 class iesec (
   # Keep IE SEC enabled as a safe default
-  $iesec_admin = true,
-  $iesec_users = true,
+  $admin_enabled = true,
+  $user_enabled  = true,
 ) {
 
   if $::operatingsystem != 'Windows' {
     fail ("Class[iesec] can only be applied to Windows systems. It cannot be used on \"${::operatingsystem}.\"")
   }
 
-  validate_bool($iesec_admin)
-  validate_bool($iesec_users)
+  validate_bool($admin_enabled)
+  validate_bool($user_enabled)
 
-  if $iesec_admin {
-    $_iesec_admin = '0x00000001'
+  if $admin_enabled {
+    $iesec_admin = '0x00000001'
   } else {
-    $_iesec_admin = '0x00000000'
+    $iesec_admin = '0x00000000'
   }
 
-  if $iesec_users {
-    $_iesec_users = '0x00000001'
+  if $users_enabled {
+    $iesec_users = '0x00000001'
   } else {
-    $_iesec_users = '0x00000000'
+    $iesec_users = '0x00000000'
   }
 
   # Disable IE SEC for Admins
-  registry_value { 'HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}\IsInstalled':
-    type  => dword,
-    data  => $_iesec_admin,
+  #  registry_value { 'HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}\IsInstalled':
+  #    type  => dword,
+  #    data  => $_iesec_admin,
+  #  }
+
+  registry::value { 'IsInstalled':
+    key  => 'HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}',
+    type => 'dword',
+    data => $iesec_admin,
   }
 
   # Disable IE SEC for Users
-  registry_value { 'HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}\IsInstalled':
-    type  => dword,
-    data  => $_iesec_users,
-  }
+  #registry_value { 'HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}\IsInstalled':
+  #  type  => dword,
+  #  data  => $_iesec_users,
+  #}
+
+  # registry::value { 'IsInstalled':
+  #   key  => 'HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}',
+  #   type => 'dword',
+  #   data => $iesec_admin,
+  # }
 }
