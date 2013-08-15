@@ -37,38 +37,27 @@ class iesec (
   validate_bool($user_enabled)
 
   if $admin_enabled {
-    $iesec_admin = '0x00000001'
+    $iesec_admin = '1'
   } else {
-    $iesec_admin = '0x00000000'
+    $iesec_admin = '0'
   }
 
   if $users_enabled {
-    $iesec_users = '0x00000001'
+    $iesec_users = '1'
   } else {
-    $iesec_users = '0x00000000'
+    $iesec_users = '0'
   }
 
   # Disable IE SEC for Admins
-  #  registry_value { 'HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}\IsInstalled':
-  #    type  => dword,
-  #    data  => $_iesec_admin,
-  #  }
-
-  registry::value { 'IsInstalled':
-    key  => 'HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}',
-    type => 'dword',
-    data => $iesec_admin,
+  registry_value { 'HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}\IsInstalled':
+     type  => 'dword',
+     data  => $iesec_admin,
   }
 
   # Disable IE SEC for Users
-  #registry_value { 'HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}\IsInstalled':
-  #  type  => dword,
-  #  data  => $_iesec_users,
-  #}
+  registry_value { 'HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}\IsInstalled':
+    type  => 'dword',
+    data  => $iesec_users,
+  }
 
-  # registry::value { 'IsInstalled':
-  #   key  => 'HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}',
-  #   type => 'dword',
-  #   data => $iesec_admin,
-  # }
 }
