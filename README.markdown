@@ -1,13 +1,12 @@
-#modulename
+#iesec
 
 ####Table of Contents
 
 1. [Overview](#overview)
 2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with [Modulename]](#setup)
-    * [What [Modulename] affects](#what-[modulename]-affects)
+3. [Setup - The basics of getting started with iesec](#setup)
+    * [What iesec affects](#what-iesec-affects)
     * [Setup requirements](#setup-requirements)
-    * [Beginning with [Modulename]](#beginning-with-[Modulename])
 4. [Usage - Configuration options and additional functionality](#usage)
 5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
@@ -15,35 +14,42 @@
 
 ##Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves. This is your 30 second elevator pitch for your module. Consider including OS/Puppet version it works with.       
+Manage Internet Explorer Enhanced Security (IESEC) on Microsoft Windows
 
 ##Module Description
 
-If applicable, this section should have a brief description of the technology the module integrates with and what that integration enables. This section should answer the questions: "What does this module *do*?" and "Why would I use it?"
-    
-If your module has a range of functionality (installation, configuration, management, etc.) this is the time to mention it.
+IESEC on Windows Server can affect the browsing experience and not allow
+important sites to load.  This module will allow you to control the settings for IESEC.
 
 ##Setup
 
-###What [Modulename] affects
+###What iesec affects
 
-* A list of files, packages, services, or operations that the module will alter, impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form. 
+* If enabled, activex and scripting are disabled
+* If disabled, activex and scripting are enabled
 
-###Setup Requirements **OPTIONAL**
+###Setup Requirements
 
-If your module requires anything extra before setting up (pluginsync enabled, etc.), mention it here. 
-	
-###Beginning with [Modulename]	
+Depends on the following modules:
 
-The very basic steps needed for a user to get the module up and running. 
+[puppetlabs/registry](https://forge.puppetlabs.com/puppetlabs/registry)
 
-If your most recent release breaks compatibility or requires particular steps for upgrading, you may wish to include an additional section here: Upgrading (For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+[puppetlabs/stdlib](https://forge.puppetlabs.com/puppetlabs/stdlib)
 
 ##Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing the fancy stuff with your module here. 
+Class: iesec
+
+        class { 'iesec':
+          iesec_admin => false,
+          iesec_users => true,
+        }
+
+Parameters:
+  $iesec_admin
+  $iesec_users
+
+Both parameters accept boolean true and false
 
 ##Reference
 
@@ -51,12 +57,12 @@ Here, list the classes, types, providers, facts, etc contained in your module. T
 
 ##Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+Supported on Windows Server 2008R2.  Testing for Server 2012 will be needed.
 
 ##Development
 
-Since your module is awesome, other users will want to play with it. Let them know what the ground rules for contributing are.
+##Release Notes/Contributors/Etc
 
-##Release Notes/Contributors/Etc **Optional**
+Contributors:
 
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You may also add any additional sections you feel are necessary or important to include here. Please use the `## ` header. 
+        Thomas Linkin <tom@puppetlabs.com>
