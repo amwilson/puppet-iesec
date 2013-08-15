@@ -37,15 +37,15 @@ class iesec (
   validate_bool($iesec_users)
 
   if $iesec_admin {
-    $_iesec_admin = '1'
+    $_iesec_admin = '0x00000001'
   } else {
-    $_iesec_admin = '0'
+    $_iesec_admin = '0x00000000'
   }
 
   if $iesec_users {
-    $_iesec_users = '1'
+    $_iesec_users = '0x00000001'
   } else {
-    $_iesec_users = '0'
+    $_iesec_users = '0x00000000'
   }
 
   # Disable IE SEC for Admins
