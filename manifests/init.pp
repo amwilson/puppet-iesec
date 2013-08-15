@@ -51,13 +51,13 @@ class iesec (
   }
 
   # Disable IE SEC for Admins
-  registry_value { '32:HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}\IsInstalled':
+  registry_value { 'HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}\IsInstalled':
      type  => 'dword',
      data  => $iesec_admin,
   }
 
   # Disable IE SEC for Users
-  registry_value { '32:HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}\IsInstalled':
+  registry_value { 'HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}\IsInstalled':
     type  => 'dword',
     data  => $iesec_users,
   }
