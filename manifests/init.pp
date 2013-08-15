@@ -26,7 +26,7 @@
 class iesec (
   # Keep IE SEC enabled as a safe default
   $admin_enabled = true,
-  $user_enabled  = true,
+  $users_enabled  = true,
 ) {
 
   if $::operatingsystem != 'Windows' {
@@ -34,7 +34,7 @@ class iesec (
   }
 
   validate_bool($admin_enabled)
-  validate_bool($user_enabled)
+  validate_bool($users_enabled)
 
   if $admin_enabled {
     $iesec_admin = '1'
