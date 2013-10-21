@@ -1,6 +1,6 @@
 name 'jonnyx-iesec'
 version '0.0.1'
 dependency 'puppetlabs/stdlib', '>=4.1.0'
-dependency 'puppetlabs/registry'
+dependency 'puppetlabs/registry' '0.1.2'
 summary 'manage Internet Explorer Enhanced Security on Microsoft Windows'
 description 'Module to allow you to enable or disable IESEC on MS Windows'
